@@ -6,13 +6,13 @@ namespace BookThing3
 {
     public class Book
     {
-        private int refNumber;
-        private string title;
+       public  int number;
+       public  string name;
 
-        public Book(int r, string t)
+        public Book(string title, int refNumber)
         {
-            r = refNumber;
-            t = title;
+            number = refNumber;
+            name = title;
 
 
         }

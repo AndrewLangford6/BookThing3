@@ -14,36 +14,85 @@ namespace BookThing3
     public partial class Form1 : Form
     {
 
-        List<Book> bookList = new List<Book>();
-
+        List<Book> Books = new List<Book>();
+        string bad; //for when you don't type in a number
         public Form1()
         {
             InitializeComponent();
+
+            List<string> bookList = File.ReadAllLines("BooksFile.txt").ToList();
+
+            for (int i = 0; i < bookList.Count; i += 2)
+            {
+                string name = bookList[i + 1];
+                int number = Convert.ToInt32(bookList[i]);
+                Book a = new Book(name, number);
+                Books.Add(a);
+                // refBook.Add(score);
+            }
+        }
+
+
+        public string LinearSearch(List<Book> searchList, int searchValue)
+        {
+            foreach (Book i in searchList)
+            {
+                if (i.number == searchValue)
+                {
+                    return i.name;
+                }
+            }
+            return "no";
+        }
+        public string BinarySearch(List<Book> searchList, int searchValue)
+        {
+            int low = 0;
+            int high = searchList.Count - 1;
+
+            while (high >= low)
+            {
+                int middle = (low + high);
+                if (searchList[middle].number == searchValue)
+                {
+                    return searchList[middle].name;
+                }
+                else if (searchList[middle].number < searchValue)
+                {
+                    low = middle + 1;
+                }
+                else
+                {
+                    high = middle - 1;
+                }
+            }
+            return "no";
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            List<string> bookList2 = File.ReadAllLines("BooksFile.txt").ToList();
 
-            for (int i = 0; i < bookList.Count; i += 2)
-            {
-                string title2 = bookList2[i];
-                int number = Convert.ToInt32(bookList[i + 1]);
-                Book hs = new Book(number, title2);
-                bookList.Add(hs);
-            }
         }
 
-        public Boolean LinearSearch(List<string> searchList, String searchValue)
+        private void button1_Click(object sender, EventArgs e)
         {
-            foreach (string s in searchList)
+            bad = outputLabel.Text;
+            try
             {
-                if (s == searchValue)
-                {
-                    return true;
-                }
+                Books = Books.OrderBy(x => x.number).ToList();
+                int reference = Convert.ToInt32(outputLabel.Text);
+                
+                string linearWoo = LinearSearch(Books, reference);
+                string binaryWoo = BinarySearch(Books, reference);
+                bOut.Text = binaryWoo + "";
+                lOut.Text = linearWoo + ""; 
             }
-            return false;
+            catch
+            {
+                outputLabel.Text = "why would you type that?\nwhat is wrong with you?\nsee the part where it says number? \nyou wrote '" + bad + "'. Really?" +
+                    "\n\nI expect better from you. >:(";
+                bOut.Text = "";
+                lOut.Text = "";
+            }
         }
     }
 }

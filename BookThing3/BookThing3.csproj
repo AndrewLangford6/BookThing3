@@ -66,6 +66,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -82,6 +83,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="BooksFile.txt" />
+    <None Include="Resources\9915b39a365d77d780c53ecce570a433a389aae4.png" />
+    <None Include="Resources\900_Art-Design-Works_Fractal Art III.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
